@@ -26,13 +26,15 @@
       <h3 class="muted">当前页面的吐槽</h3>
     </div>
     <div class="container">
-      <table class="table table-bordered">
-      </table>
+      <div id="list"></div>
+      <div class="alert hide text-center" num="0" id="add_more" style="cursor:pointer;">加载更多</div>
     </div>
     <div class="container">
       <div><textarea id="comment_input"></textarea></div>
-      <div class="alert fade in"></div>
+      <div class="alert hide fade in alert-error"></div>
       <div class="clearfix"><input id="submit_comment" type="button" value="我也要吐槽" class="btn btn-info pull-right" /></div>
     </div>
+    <hr>
+    <div class="container"></div>
   </body>
 </html>
