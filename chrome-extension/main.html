@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Big Brain Hole</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery.md5.js"></script> 
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/av-mini.js"></script>
+    <script src="js/main.js"></script>
+    <style type="text/css">
+      #comment_input {
+        width:97%;/*自动适应父布局宽度*/
+        overflow:auto;
+        word-break:break-all;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="masthead">
+      <!--<ul class="nav nav-pills pull-right">
+        <li class="active"><a href="/">首页</a></li>
+      </ul>-->
+      <h3 class="muted">当前页面的吐槽</h3>
+    </div>
+    <div class="container">
+      <table class="table table-bordered">
+      </table>
+    </div>
+    <div class="container">
+      <div><textarea id="comment_input"></textarea></div>
+      <div class="alert fade in"></div>
+      <div class="clearfix"><input id="submit_comment" type="button" value="我也要吐槽" class="btn btn-info pull-right" /></div>
+    </div>
+  </body>
+</html>

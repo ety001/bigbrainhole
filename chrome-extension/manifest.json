@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+
+  "name": "Big Brain Hole",
+  "description": "吐槽智能硬件产品",
+  "version": "1.0",
+  "browser_action": {
+    "default_title": "Big Brain Hole",
+    "default_icon": "icon.png"
+  },
+  "background": { 
+    "scripts": ["js/av-mini.js","js/background.js"],
+    "persistent": false
+  },
+  "permissions": [
+    "tabs","notifications","background","activeTab"
+  ]
+}
