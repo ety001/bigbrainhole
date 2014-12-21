@@ -13,6 +13,6 @@
     "persistent": false
   },
   "permissions": [
-    "tabs","notifications","background","activeTab"
+    "tabs","notifications","background","activeTab","https://bigbrainhole.avosapps.com/"
   ]
 }

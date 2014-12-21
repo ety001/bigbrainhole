@@ -1,10 +1,6 @@
 $(function(){
-    AV.initialize("tg7xkgxtxp6k1z28883mwkzv8bfriqtfot4ln8dbi01wtjmv", "vpmzwg2ttv276mk4ea7666fz0j62ov2gver8xdb47m8vigpj");
-    var item_num = 10;
-    var BigBrainComments = AV.Object.extend("BigBrain_comments");
-    var BigBrainList = AV.Object.extend("BigBrain_list");
     var url = window.location.search.replace('?','');
-    var title = decodeURIComponent( window.location.hash.replace('#','') ).replace('点名时间 - ','');
+    var title = decodeURIComponent( window.location.hash.replace('#','') );
     var url_hash = $.md5(url);
 
     //读取评论
