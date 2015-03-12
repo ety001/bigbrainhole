@@ -3,7 +3,7 @@ var G = {
   charge_page : function(url){
     //判断页面是否可以执行扩展
     var t = url.split(':');
-    var black = ['chrome-devtools','chrome'];
+    var black = ['chrome-devtools','chrome','chrome-extension'];
     for(var i in black){
       if(t[0] === black[i]){
         return false;
