@@ -1,7 +1,15 @@
 //公共函数
 var G = {
   charge_page : function(url){
-
+    //判断页面是否可以执行扩展
+    var t = url.split(':');
+    var black = ['chrome-devtools','chrome'];
+    for(var i in black){
+      if(t[0] === black[i]){
+        return false;
+      }
+    }
+    return true;
   },
   params_2_txt : function(params){
     //处理待提交的参数
@@ -55,13 +63,15 @@ Dan.prototype.get_comments_num = function(url_hash){
 
 chrome.tabs.onUpdated.addListener(function(tabId, info, tab){
   if(tab.status=='complete'){
-    var js_url = 'https://bigbrainhole.avosapps.com/tucao.js';
-    chrome.tabs.executeScript({
-      code: 'var o =document.createElement("script");\
-      o.src="'+js_url+'";\
-      document.body.appendChild(o);\
-      document.cookie="bigbrainhole_url_hash='+$.md5(tab.url)+'";'
-    });
+    if(G.charge_page(tab.url)){
+      var js_url = 'https://bigbrainhole.avosapps.com/tucao.js';
+      chrome.tabs.executeScript({
+        code: 'var o =document.createElement("script");\
+        o.src="'+js_url+'";\
+        document.body.appendChild(o);\
+        document.cookie="bigbrainhole_url_hash='+$.md5(tab.url)+'";'
+      });
+    }
   }
 });
 
