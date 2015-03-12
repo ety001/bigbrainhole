@@ -1,0 +1,9 @@
+{
+  "name": "bigbrainhole",
+  "description": "bigbrainhole",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "xss": ">= 0.1.13"
+  }
+}
