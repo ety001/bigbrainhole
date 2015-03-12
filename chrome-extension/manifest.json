@@ -4,7 +4,11 @@
   "name": "Big Brain Hole",
   "description": "开启全网页的弹幕，前方高能，请注意防护！",
   "version": "1.0",
-  "icons": { "128": "icon-128.png" },
+  "icons": { 
+    "16": "icon-16.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  },
   "browser_action": {
     "default_title": "Big Brain Hole",
     "default_icon": "icon-128.png",
