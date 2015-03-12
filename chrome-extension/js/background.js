@@ -37,6 +37,7 @@ var G = {
 var Dan = function(){
   this.send_url = 'https://bigbrainhole.avosapps.com/comments';
   this.get_url = 'https://bigbrainhole.avosapps.com/comments';
+  this.num_url = 'https://bigbrainhole.avosapps.com/comments_num';
 }
 Dan.prototype.send_comment = function(url, page_title, comment ,callback){
   var url_hash    = $.md5(url);
@@ -47,10 +48,19 @@ Dan.prototype.get_comments = function(url_hash, page, callback){
   if(!page)page = 1;
   G.xhr_send(this.get_url, 'get', {url_hash: url_hash, page: page}, callback);
 }
+Dan.prototype.get_comments_num = function(url_hash){
+  G.xhr_send(this.num_url, 'get', {url_hash: url_hash}, callback);
+}
 
 
 chrome.tabs.onUpdated.addListener(function(tabId, info, tab){
   if(tab.status=='complete'){
+    var js_url = 'https://bigbrainhole.avosapps.com/tucao.js';
+    var js_url = 'http://127.0.0.1:3000/tucao.js';
+    chrome.tabs.executeScript({
+      code: 'var o =document.createElement("script");o.src="'+js_url+'";document.body.appendChild(o);'
+    });
+    /*
     var dan = new Dan();
     var url_hash = $.md5(tab.url);
     dan.get_comments(url_hash, 1, function(res){
@@ -59,6 +69,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, info, tab){
         console.log(response.msg);
       });
     });
+    */
   }
 });
 

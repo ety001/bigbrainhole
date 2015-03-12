@@ -26,7 +26,7 @@
     "notifications",
     "background",
     "activeTab",
-    "http://*.bigbrainhole.avosapps.com/",
-    "https://*.bigbrainhole.avosapps.com/"
+    "http://*/*",
+    "https://*/*"
   ]
 }
