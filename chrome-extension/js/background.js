@@ -1,36 +1,8 @@
-chrome.tabs.onUpdated.addListener(function(tabId,changeInfo,tab){
-  if(tab.status==='complete'){
-    //如果是chrome页，则返回
-    if(tab.url.substr(0,9)==='chrome://'){
-      return;
-    }
-    var encode_url      = encodeURIComponent(tab.url);
-    var title           = encodeURIComponent(tab.title);
-    //localStorage.currentTabInfo = JSON.stringfy({encode_url: encode_url, title: title});
-    //console.log(localStorage);
-  }
-});
-
-
-function check_comments_num(url_hash) {
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", "https://bigbrainhole.avosapps.com/comments_num?url_hash="+url_hash, true);
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4) {
-      var resp = JSON.parse(xhr.responseText);
-      var msg;
-      if(resp.count>0){
-        msg = '当前页面有'+count+'条吐槽';
-      } else {
-        msg = '当前页面暂无吐槽';
-      }
-      chrome.notifications.create('',{type:'basic',iconUrl:'icon-128.png',title:'Big Brain Hole',message:msg},function(notification_id){});
-    }
-  }
-  xhr.send();
-}
 //公共函数
 var G = {
+  charge_page : function(url){
+
+  },
   params_2_txt : function(params){
     //处理待提交的参数
     var params_arr = [];
@@ -60,16 +32,41 @@ var G = {
     xhr.send(G.params_2_txt(send_data));
   }
 }
+
 //类库
 var Dan = function(){
-  this.send_url = 'https://dev.bigbrainhole.avosapps.com/comments';
+  this.send_url = 'https://bigbrainhole.avosapps.com/comments';
+  this.get_url = 'https://bigbrainhole.avosapps.com/comments';
 }
 Dan.prototype.send_comment = function(url, page_title, comment ,callback){
   var url_hash    = $.md5(url);
   var params = {web_title: page_title, url: url, url_hash: url_hash, comment_text: comment};
   G.xhr_send(this.send_url, 'post', params, callback);
 }
-Dan.prototype.get_comment = function(url_hash, page){
+Dan.prototype.get_comments = function(url_hash, page, callback){
   if(!page)page = 1;
-
+  G.xhr_send(this.get_url, 'get', {url_hash: url_hash, page: page}, callback);
 }
+
+
+chrome.tabs.onUpdated.addListener(function(tabId, info, tab){
+  if(tab.status=='complete'){
+    var dan = new Dan();
+    var url_hash = $.md5(tab.url);
+    dan.get_comments(url_hash, 1, function(res){
+      var data = JSON.stringify(res);
+      chrome.tabs.sendMessage(tab.id, {tucao: data}, function(response) {
+        console.log(response.msg);
+      });
+    });
+  }
+});
+
+
+
+
+
+
+
+
+

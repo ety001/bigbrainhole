@@ -9,8 +9,8 @@ $(function(){
       if(tab.url.substr(0,9)==='chrome://'){
         return;
       }
-      url           = encodeURIComponent(tab.url);
-      page_title    = encodeURIComponent(tab.title);
+      url           = tab.url;
+      page_title    = tab.title;
     }
   });
   $('#submit_comment').click(function(){
