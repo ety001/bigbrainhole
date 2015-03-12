@@ -40,6 +40,24 @@ var G = {
     var params_txt = '';
     params_txt = params_arr.join('&');
     return params_txt;
+  },
+  xhr_send : function(url, send_type, send_data, callback){
+    if(!send_type)send_type = 'get';
+    if(send_type=='get'){
+      url = url + '?' + G.params_2_txt(send_data);
+    }
+    var xhr = new XMLHttpRequest();
+    xhr.open(send_type, url, true);
+    if(send_type=='post'){
+      //设置POST请求的请求头
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    } 
+    xhr.onreadystatechange = function(){
+      if(xhr.readyState == 4 && xhr.status == 200){
+        callback(JSON.parse(xhr.responseText));
+      }
+    }
+    xhr.send(G.params_2_txt(send_data));
   }
 }
 //类库
@@ -48,15 +66,10 @@ var Dan = function(){
 }
 Dan.prototype.send_comment = function(url, page_title, comment ,callback){
   var url_hash    = $.md5(url);
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', this.send_url, true);
-  //设置POST请求的请求头
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.onreadystatechange = function(){
-    if(xhr.readyState == 4 && xhr.status == 200){
-      callback(JSON.parse(xhr.responseText));
-    }
-  }
   var params = {web_title: page_title, url: url, url_hash: url_hash, comment_text: comment};
-  xhr.send(G.params_2_txt(params));
+  G.xhr_send(this.send_url, 'post', params, callback);
+}
+Dan.prototype.get_comment = function(url_hash, page){
+  if(!page)page = 1;
+
 }
