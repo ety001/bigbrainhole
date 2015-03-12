@@ -56,20 +56,12 @@ Dan.prototype.get_comments_num = function(url_hash){
 chrome.tabs.onUpdated.addListener(function(tabId, info, tab){
   if(tab.status=='complete'){
     var js_url = 'https://bigbrainhole.avosapps.com/tucao.js';
-    var js_url = 'http://127.0.0.1:3000/tucao.js';
     chrome.tabs.executeScript({
-      code: 'var o =document.createElement("script");o.src="'+js_url+'";document.body.appendChild(o);'
+      code: 'var o =document.createElement("script");\
+      o.src="'+js_url+'";\
+      document.body.appendChild(o);\
+      document.cookie="bigbrainhole_url_hash='+$.md5(tab.url)+'";'
     });
-    /*
-    var dan = new Dan();
-    var url_hash = $.md5(tab.url);
-    dan.get_comments(url_hash, 1, function(res){
-      var data = JSON.stringify(res);
-      chrome.tabs.sendMessage(tab.id, {tucao: data}, function(response) {
-        console.log(response.msg);
-      });
-    });
-    */
   }
 });
 
