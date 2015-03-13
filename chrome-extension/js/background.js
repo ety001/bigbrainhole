@@ -67,6 +67,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, info, tab){
       var js_url = 'https://bigbrainhole.avosapps.com/tucao.js';
       chrome.tabs.executeScript({
         code: 'var o =document.createElement("script");\
+        o.type="text/javascript";\
+        o.charset="utf-8";\
         o.src="'+js_url+'";\
         document.body.appendChild(o);\
         document.cookie="bigbrainhole_url_hash='+$.md5(tab.url)+'";'
